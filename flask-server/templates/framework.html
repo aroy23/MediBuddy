@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+        <!--========== BOX ICONS ==========-->
+        <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+
+
+        <!--========== CSS ==========-->
+        <link rel="stylesheet" href="../static/assets/css/styles.css">
+
+
+        <title>MeddiBuddy</title>
+    </head>
+    <body>
+
+
+        <a href="#" class="scrolltop" id="scroll-top">
+            <i class='bx bx-chevron-up scrolltop__icon'></i>
+        </a>
+
+
+        <header class="l-header" id="header">
+            <nav class="nav bd-container">
+                <a href="index.html" class="nav__logo">MediBuddy</a>
+
+
+                <div class="nav__menu" id="nav-menu">
+                    <ul class="nav__list">
+                        <li class="nav__item"><a href="index.html" class="nav__link">Home</a></li>
+                        <li class="nav__item"><a href="index.html#about" class="nav__link">About</a></li>
+                        <li class="nav__item"><a href="index.html#menu" class="nav__link">Services</a></li>
+                        <li class="nav__item"><a href="sign.html" class="nav__link">Login</a></li>
+
+
+                        <li><i class='bx bx-moon change-theme' id="theme-button"></i></li>
+                    </ul>
+                </div>
+
+
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class='bx bx-menu'></i>
+                </div>
+            </nav>
+        </header>
+
+
+        <main class="l-main">
+        <!--========== DROPDOWN ==========-->
+        <body1 class="body1">
+            <div class="total-container">
+                <div class="dropdown-container">
+                    <div class="sec-center">
+                        <input class="dropdown" type="checkbox" id="dropdown" name="dropdown" />
+                        <label class="for-dropdown" for="dropdown">Check Diagnosis  <i class="uil uil-arrow-down"></i></label>
+                        <div class="section-dropdown">
+                            <c href="#" onclick="toggleFields('diabetes')">Diabetes <i class="uil uil-arrow-right"></i></c>
+                            <c href="#" onclick="toggleFields('kidney')">Kidney Function <i class="uil uil-arrow-right"></i></c>
+                            <c href="#" onclick="toggleFields('cancer')">Cancer Markers <i class="uil uil-arrow-right"></i></c>
+                            <c href="#"> <i class="uil uil-arrow-right"></i></c>
+                        </div>
+                    </div> 
+                </div>
+                <div class="form-container" id="formContainer">
+                    <div id="diabetesField" style="display:none;">
+                        <div class="form__group field">
+                            <input type="input" class="form__field" placeholder="Age" name="age" id='age' required />
+                            <label for="age" class="form__label">Age</label>
+                        </div>
+                        <div class="form__group field">
+                            <input type="input" class="form__field" placeholder="BMI" name="bmi" id='bmi' required />
+                            <label for="bmi" class="form__label">BMI</label>
+                        </div>
+                        <div class="form__group field">
+                            <input type="input" class="form__field" placeholder="Glucose" name="glucose" id='glucose' required />
+                            <label for="glucose" class="form__label">Glucose</label>
+                        </div>
+                        <div class="form__group field">
+                            <input type="input" class="form__field" placeholder="Iron" name="iron" id='iron' required />
+                            <label for="iron" class="form__label">Iron</label>
+                        </div>
+                        <div class="form__group field">
+                            <input type="input" class="form__field" placeholder="Calcium" name="calcium" id='calcium' required />
+                            <label for="calcium" class="form__label">Calcium</label>
+                        </div>
+                    </div> 
+                    <div id="kidneyField" style="display:none;">
+                        <div class="form__group field">
+                            <input type="input" class="form__field" placeholder="Age" name="age" id='age' required />
+                            <label for="age" class="form__label">Age</label>
+                        </div>
+                        <div class="form__group field">
+                            <input type="input" class="form__field" placeholder="BMI" name="bmi" id='bmi' required />
+                            <label for="bmi" class="form__label">BMI</label>
+                        </div>
+                        <div class="form__group field">
+                            <input type="input" class="form__field" placeholder="Electrolyte" name="electrolyte" id='electrolyte' required />
+                            <label for="electrolyte" class="form__label">Electrolyte Levels</label>
+                        </div>
+                        <div class="form__group field">
+                            <input type="input" class="form__field" placeholder="Creatinine" name="creatine" id='creatine' required />
+                            <label for="creatine" class="form__label">Serum Creatinine</label>
+                        </div>
+                        <div class="form__group field">
+                            <input type="input" class="form__field" placeholder="Nitrogen" name="nitrogen" id='nitrogen' required />
+                            <label for="nitrogen" class="form__label">Blood Urea Nitrogen</label>
+                        </div>
+                    </div> 
+                    <div id="cancerField" style="display:none;">
+                        <div class="form__group field">
+                            <input type="input" class="form__field" placeholder="Age" name="age" id='age' required />
+                            <label for="age" class="form__label">Age</label>
+                        </div>
+                        <div class="form__group field">
+                            <input type="input" class="form__field" placeholder="BMI" name="bmi" id='bmi' required />
+                            <label for="bmi" class="form__label">BMI</label>
+                        </div>
+                        <div class="form__group field">
+                            <input type="input" class="form__field" placeholder="WBC" name="wbc" id='wbc' required />
+                            <label for="wbc" class="form__label">White Blood Cell Count</label>
+                        </div>
+                        <div class="form__group field">
+                            <input type="input" class="form__field" placeholder="CEA" name="cea" id='cea' required />
+                            <label for="cea" class="form__label">CEA Levels</label>
+                        </div>
+                        <div class="form__group field">
+                            <input type="input" class="form__field" placeholder="AF" name="af" id='af' required />
+                            <label for="af" class="form__label">Alpha-Fetoprotein</label>
+                        </div>
+                    </div> 
+                </div>
+                <div class="submitbutton" id="submitbutton">
+                    <a href="#" class="buttoninput">Submit</a>
+                </div>
+            </div>
+        </body1>
+        
+
+        
+
+
+        <!--========== FOOTER ==========-->
+        <footer class="footer section bd-container">
+            <div class="footer__container bd-grid">
+                <div class="footer__content">
+                    <a href="#" class="footer__logo">MediBuddy</a>
+                    <span class="footer__description">Health Services</span>
+                    <div>
+                        <a href="https://www.instagram.com/cho1dorj/" target="_blank" class="footer__social"><i class='bx bxl-instagram'></i></a>
+                        <a href="https://www.instagram.com/arnavroyy1" target="_blank" class="footer__social"><i class='bx bxl-instagram'></i></a>
+                        <a href="https://www.instagram.com/stanley_t_s/" target="_blank" class="footer__social"><i class='bx bxl-instagram'></i></a>
+                        <a href="https://www.instagram.com/emmaa_wu" target="_blank" class="footer__social"><i class='bx bxl-instagram'></i></a>
+                    </div>
+                </div>
+
+
+                <div class="footer__content">
+                    <h3 class="footer__title">Services</h3>
+                    <ul>
+                        <li><a href="#" class="footer__link">Diagnosis Check</a></li>
+                        <li><a href="#" class="footer__link">Dosage Check</a></li>
+                    </ul>
+                </div>
+
+
+                <div class="footer__content">
+                    <h3 class="footer__title">Information</h3>
+                    <ul>
+                        <li><a href="#" class="footer__link">About Us</a></li>
+                        <li><a href="#" class="footer__link">Contact Us</a></li>
+                    </ul>
+                </div>
+
+
+                <div class="footer__content">
+                    <h3 class="footer__title">Address</h3>
+                    <ul>
+                        <li>Los Angeles, California</li>
+                        <li>330 De Neve Dr</li>
+                        <li>123-456-7890</li>
+                        <li>medibuddy@email.com</li>
+                    </ul>
+                </div>
+            </div>
+
+
+            <p class="footer__copy">&#169; 2020 Bedimcode. All right reserved</p>
+        </footer>
+
+
+        <!--========== SCROLL REVEAL ==========-->
+        <script src="https://unpkg.com/scrollreveal"></script>
+
+
+        <!--========== MAIN JS ==========-->
+        <script src="../static/assets/js/main.js"></script>
+    </body>
+</html>
