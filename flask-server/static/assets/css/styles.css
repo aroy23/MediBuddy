@@ -949,3 +949,26 @@ c .uil {
 .dropdown-container, .form-container {
   margin-bottom: 20px;
 }
+/*========== text ==========*/
+.text__data{
+  text-align: center;
+  margin-left: 100px;
+}
+
+
+.text__description{
+  margin-bottom: var(--mb-3);
+  font-size: 170%;
+}
+.text__container {
+  align-items: center;
+}
+.text__initial {
+  align-items: center;
+}
+.text-container{
+  max-width: 960px;
+  width: calc(100% - 2rem);
+  margin-left: var(--mb-2);
+  margin-right: var(--mb-2);
+}
