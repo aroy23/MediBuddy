@@ -319,7 +319,6 @@ def signup():
 def addPatient():
     if request.method == 'POST':
         # Assuming the current user is stored in a variable called currentUser
-        print(currentUser)
         # Open the current user's CSV file
         csv_file = f"{currentUser}.csv"
         fieldnames = ['patient', 'latest_report']
@@ -347,7 +346,37 @@ def addPatient():
     
 @app.route('/add_to_existing_patient', methods=['GET', 'POST'])
 def addToExisting():
-    return
+    stringy1 = format_markdown(genText)
+    fileFromField = f"{currentUser}.csv"
+    if request.method == 'POST':
+        input_number = request.form['ID']  # Assuming input_number is submitted via the form
+        s = format_markdown(genText)  # Assuming h is submitted via the form        
+        if input_number and s and currentUser:
+            fileFromField = f"{currentUser}.csv"
+            
+            # Read the CSV file and update if necessary
+            with open(fileFromField, 'r', newline='') as csvfile:
+                reader = csv.reader(csvfile)
+                rows = list(reader)
+                found = False
+                for row in rows:
+                    if row[0] == input_number:
+                        row[1] = stringy1
+                        found = True
+                        break  # No need to continue searching
+            if found:
+                # Rewrite the updated rows back to the CSV file
+                with open(fileFromField, 'w', newline='') as csvfile:
+                    writer = csv.writer(csvfile)
+                    writer.writerows(rows)
+                    
+                return render_template('framework.html')
+            else:
+                return render_template('index.html')
+        else:
+            return "Missing input data."
+    else:
+        return "Method not allowed."
 
 @app.route('/export_report', methods=['GET', 'POST'])
 def export():
