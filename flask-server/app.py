@@ -8,6 +8,57 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.preprocessing import StandardScaler
 import pandas as pd
 import numpy as np
+import google.generativeai as genai
+
+genText = None
+
+def format_markdown(input_string):
+    return input_string.replace("*", "")
+
+# Example usage
+markdown_text = "This is a *bold* text."
+formatted_text = format_markdown(markdown_text)
+print(formatted_text)
+
+def printToGemini(arg:str):
+    genai.configure(api_key="AIzaSyDVJS1744dqs1WtNEflRiUSEgqGQzhIrRQ")
+
+    # Set up the model
+    generation_config = {
+    "temperature": 1,
+    "top_p": 0.95,
+    "top_k": 0,
+    "max_output_tokens": 8192,
+    }
+
+    safety_settings = [
+    {
+        "category": "HARM_CATEGORY_HARASSMENT",
+        "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+    },
+    {
+        "category": "HARM_CATEGORY_HATE_SPEECH",
+        "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+    },
+    {
+        "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+        "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+    },
+    {
+        "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+    "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+    },
+]
+
+    model = genai.GenerativeModel(model_name="gemini-1.5-pro-latest",
+                              generation_config=generation_config,
+                              safety_settings=safety_settings)
+
+    convo = model.start_chat(history=[])
+
+    convo.send_message(arg)
+    global genText 
+    genText = convo.last.text
 
 def getDiabetesData():
     data = pd.read_csv('datadb.csv')
@@ -36,9 +87,11 @@ def getDiabetesData():
     file_name = os.path.splitext('diabetes.csv')[0]
     for idx, prediction in enumerate(predictions):
         if prediction == 1:
-            print(f"Person {idx+1} Has Diabetes")
+            argtrue = "Say: This Person likely has diabetes. After saying that, Suggest a plan they could take to reduce risk factors. Mention diet regarding bmi, glucose, calcium, iron, excercise, and mental health. Remind the patient to consult their doctor for further medical advice."
+            printToGemini(argtrue)
         else:
-            print(f"Person {idx+1} Does not have Diabetes")
+            argtrue = "Say: This Person likely does not have diabetes. After saying that, suggest a plan maintains good health practices, involving physical, mental, and emotional health regarding preventing diabetes. Remind the patient to consult their doctor for further medical advice."
+            printToGemini(argtrue)
     os.remove('diabetes.csv')
 
 def getKidneyData():
@@ -68,9 +121,11 @@ def getKidneyData():
     file_name = os.path.splitext('kidney.csv')[0]
     for idx, prediction in enumerate(predictions):
         if prediction == 1:
-            print(f"Person {idx+1} Has Kidney Issues")
+            argtrue = "Say: This Person likely has kidney complications. After saying that, Suggest a plan they could take to reduce risk factors. Mention diet regarding bmi, electrolyte levels, serum creatine, blood urea nitrogen, excercise, and mental health. Remind the patient to consult their doctor for further medical advice."
+            printToGemini(argtrue)
         else:
-            print(f"Person {idx+1} Does not have Kidney Issues")
+            argtrue = "Say: This Person likely does not have kidney complications. After saying that, suggest a plan maintains good health practices, involving physical, mental, and emotional health regarding preventing kidney issues in the future. Remind the patient to consult their doctor for further medical advice."
+            printToGemini(argtrue)
     os.remove('kidney.csv')
 
 
@@ -101,9 +156,11 @@ def getCancerData():
     file_name = os.path.splitext('cancer.csv')[0]
     for idx, prediction in enumerate(predictions):
         if prediction == 1:
-            print(f"Person {idx+1} Has Cancer")
+            argtrue = "Say: This Person likely has cancer markers. After saying that, Suggest a plan they could take to reduce risk factors. Mention diet regarding bmi, white blood sell count, CEA levels, alpha fetoprotein, excercise, and mental health. Remind the patient to consult their doctor for further medical advice."
+            printToGemini(argtrue)
         else:
-            print(f"Person {idx+1} Does not have Cancer")
+            argtrue = "Say: This Person likely does not have cancer markers. After saying that, suggest a plan maintains good health practices, involving physical, mental, and emotional health regarding preventing cancer development in the future. Remind the patient to consult their doctor for further medical advice."
+            printToGemini(argtrue)
     os.remove('cancer.csv')
 
 def write_person_data_to_csv(people_data, filename):
@@ -150,7 +207,9 @@ def framework():
 
 @app.route('/report', methods=['GET', 'POST'])
 def report():
-    return render_template('report.html')
+    global genText
+    return_text = format_markdown(genText)
+    return render_template('report.html', generated_text=return_text)
 
 @app.route('/processdbinput', methods=['GET', 'POST'])
 def processdbinput():
@@ -171,7 +230,7 @@ def processdbinput():
         write_person_data_to_csv(patientdbdata, 'diabetes.csv')
         getDiabetesData()
         
-    return render_template('report.html')
+    return report()
 
 @app.route('/processkidneyinput', methods=['GET', 'POST'])
 def processkidneyinput():
@@ -191,7 +250,7 @@ def processkidneyinput():
         patientdbdata = [get_person_data_from_input()]
         write_person_data_to_csv(patientdbdata, 'kidney.csv')
         getKidneyData()
-    return render_template('report.html')
+    return report()
 
 @app.route('/processcancerinput', methods=['GET', 'POST'])
 def processcancerinput():
@@ -211,7 +270,7 @@ def processcancerinput():
         patientdbdata = [get_person_data_from_input()]
         write_person_data_to_csv(patientdbdata, 'cancer.csv')
         getCancerData()
-    return render_template('report.html')
+    return report()
 
 @app.route('/signin', methods=['GET', 'POST'])
 def signin():
