@@ -9,16 +9,12 @@ from sklearn.preprocessing import StandardScaler
 import pandas as pd
 import numpy as np
 import google.generativeai as genai
+from sqlalchemy.exc import IntegrityError
 
 genText = None
 
 def format_markdown(input_string):
     return input_string.replace("*", "")
-
-# Example usage
-markdown_text = "This is a *bold* text."
-formatted_text = format_markdown(markdown_text)
-print(formatted_text)
 
 def printToGemini(arg:str):
     genai.configure(api_key="AIzaSyDVJS1744dqs1WtNEflRiUSEgqGQzhIrRQ")
@@ -291,11 +287,15 @@ def signup():
     email = request.form['email']
 
     new_user = User(username=username, password=password, email=email)
-    db.session.add(new_user)
-    db.session.commit()
 
-    return render_template('index.html')
-    
+    try:
+        db.session.add(new_user)
+        db.session.commit()
+        return render_template('index.html')
+    except IntegrityError:
+        db.session.rollback()
+        error_message = "Username or email already exists. Please choose a different one."
+        return render_template('sign.html', error=error_message)    
 
 
 

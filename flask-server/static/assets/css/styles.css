@@ -657,6 +657,7 @@ input[type="password"]:focus {
   justify-content: center;
   padding-top: 100px;
   padding-bottom: 120px;
+  /* change this for more space on features page */
   
 }
 .sec-center {
