@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask import Flask, render_template, request, redirect, url_for, jsonify, make_response
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import csv
@@ -10,8 +10,23 @@ import pandas as pd
 import numpy as np
 import google.generativeai as genai
 from sqlalchemy.exc import IntegrityError
+import random
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+from reportlab.lib.units import inch
+from io import BytesIO
+from reportlab.lib.utils import simpleSplit
+
+
+def create_csv_file(file_name):
+    with open(file_name, 'w', newline='') as csvfile:
+        fieldnames = ['patient', 'latest_report']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+
 
 genText = None
+currentUser = None
 
 def format_markdown(input_string):
     return input_string.replace("*", "")
@@ -86,7 +101,7 @@ def getDiabetesData():
             argtrue = "Say in a continuous paragraph with no markdown formatting and assume that this person has diabetes: This person likely has diabetes. After saying that, Suggest a plan they could take to reduce risk factors. Mention diet regarding BMI, glucose, calcium, iron, exercise, and mental health. Remind the patient to consult their doctor for further medical advice. Being the paragraph with what sounds like a definitive diagnosis. Also pretend that this paragraph is a doctor's report to a patient."
             printToGemini(argtrue)
         else:
-            argtrue = "Say: This Person likely does not have diabetes. After saying that, suggest a plan maintains good health practices, involving physical, mental, and emotional health regarding preventing diabetes. Remind the patient to consult their doctor for further medical advice."
+            argtrue = "Say in a continuous paragraph with no markdown formatting and assume that this person does not have diabetes:  After saying that, suggest a plan maintains good health practices, involving physical, mental, and emotional health regarding preventing diabetes. Remind the patient to consult their doctor for further medical advice. Begin the paragraph with what sounds like a definitive diagnosis. Also pretend that this paragraph is a doctor's report to a patient."
             printToGemini(argtrue)
     os.remove('diabetes.csv')
 
@@ -117,10 +132,10 @@ def getKidneyData():
     file_name = os.path.splitext('kidney.csv')[0]
     for idx, prediction in enumerate(predictions):
         if prediction == 1:
-            argtrue = "Say: This Person likely has kidney complications. After saying that, Suggest a plan they could take to reduce risk factors. Mention diet regarding bmi, electrolyte levels, serum creatine, blood urea nitrogen, excercise, and mental health. Remind the patient to consult their doctor for further medical advice."
+            argtrue = "Say in a continuous paragraph with no markdown formatting and assume that this person likely has kidney complications. After saying that, Suggest a plan they could take to reduce risk factors. Mention diet regarding BMI, electrolyte levels, serum creatine, blood urea nitrogen, exercise, and mental health. Remind the patient to consult their doctor for further medical advice. Begin the paragraph with what sounds like a definitive diagnosis. Also pretend that this paragraph is a doctor's report to a patient."
             printToGemini(argtrue)
         else:
-            argtrue = "Say: This Person likely does not have kidney complications. After saying that, suggest a plan maintains good health practices, involving physical, mental, and emotional health regarding preventing kidney issues in the future. Remind the patient to consult their doctor for further medical advice."
+            argtrue = "Say in a continuous paragraph with no markdown formatting and assume that this person does not have kidney complications. After saying that, Suggest a plan they could take to reduce risk factors. Mention diet regarding BMI, electrolyte levels, serum creatine, blood urea nitrogen, exercise, and mental health. Remind the patient to consult their doctor for further medical advice. Begin the paragraph with what sounds like a definitive diagnosis. Also pretend that this paragraph is a doctor's report to a patient."
             printToGemini(argtrue)
     os.remove('kidney.csv')
 
@@ -152,10 +167,10 @@ def getCancerData():
     file_name = os.path.splitext('cancer.csv')[0]
     for idx, prediction in enumerate(predictions):
         if prediction == 1:
-            argtrue = "Say: This Person likely has cancer markers. After saying that, Suggest a plan they could take to reduce risk factors. Mention diet regarding bmi, white blood sell count, CEA levels, alpha fetoprotein, excercise, and mental health. Remind the patient to consult their doctor for further medical advice."
+            argtrue = "Say in a continuous paragraph with no markdown formatting and assume that this person has cancer markers After saying that, clarify that while it is just a risk it is not something that should be taken lightly. If caught early by medical professionals, it can be very treatable. Encourage the patient to seek further, more advanced medical help. Begin the paragraph with a diagnosis that gives a slight sense of urgency. Also pretend that this paragraph is a doctor's report to a patient."
             printToGemini(argtrue)
         else:
-            argtrue = "Say: This Person likely does not have cancer markers. After saying that, suggest a plan maintains good health practices, involving physical, mental, and emotional health regarding preventing cancer development in the future. Remind the patient to consult their doctor for further medical advice."
+            argtrue = "Say in a continuous paragraph with no markdown formatting and assume that this person does not have cancer markers. After saying that, clarify that while nothing is present right now, this does not signify a cancer-free future. If caught early by medical professionals, it can be very treatable. Encourage the patient maintain a healthy lifestyle that would help prevent cancer development, with a disclaimer that it is not a foolproof plan and randomness really does happen. Begin the paragraph with a clear diagnosis statement. Also pretend that this paragraph is a doctor's report to a patient."
             printToGemini(argtrue)
     os.remove('cancer.csv')
 
@@ -272,10 +287,11 @@ def processcancerinput():
 def signin():
     username = request.form['username']
     password = request.form['password']
-
+    global currentUser
     user = User.query.filter_by(username=username, password=password).first()
 
     if user:
+        currentUser = username
         return render_template('index.html')
     else:
         return render_template('sign.html', error="Try Again: Invalid username or password")
@@ -285,12 +301,14 @@ def signup():
     username = request.form['username']
     password = request.form['password']
     email = request.form['email']
-
+    global currentUser
     new_user = User(username=username, password=password, email=email)
 
     try:
+        currentUser = username
         db.session.add(new_user)
         db.session.commit()
+        create_csv_file(username+".csv")
         return render_template('index.html')
     except IntegrityError:
         db.session.rollback()
@@ -299,14 +317,81 @@ def signup():
     
 @app.route('/add_patient', methods=['GET', 'POST'])
 def addPatient():
-    return
+    if request.method == 'POST':
+        # Assuming the current user is stored in a variable called currentUser
+        print(currentUser)
+        # Open the current user's CSV file
+        csv_file = f"{currentUser}.csv"
+        fieldnames = ['patient', 'latest_report']
+        
+        # Determine the next incremental number
+        next_patient_number = 1
+        try:
+            with open(csv_file, 'r', newline='') as csvfile:
+                reader = csv.DictReader(csvfile)
+                for row in reader:
+                    next_patient_number = int(row['patient']) + 1
+        except FileNotFoundError:
+            # If the file doesn't exist, create a new one
+            with open(csv_file, 'w', newline='') as csvfile:
+                writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+                writer.writeheader()
 
+        # Append the new data to the file
+        with open(csv_file, 'a', newline='') as csvfile:
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            writer.writerow({'patient': next_patient_number, 'latest_report': format_markdown(genText)})
+            
+        return render_template('framework.html')
+    return "Operation Failed"
+    
 @app.route('/add_to_existing_patient', methods=['GET', 'POST'])
 def addToExisting():
     return
 
 @app.route('/export_report', methods=['GET', 'POST'])
 def export():
-    return 
+    text = format_markdown(genText)
+
+    words = text.split()
+    eight_word_elements = []
+    for i in range(0, len(words), 9):
+        eight_words = ' '.join(words[i:i+9])
+        eight_word_elements.append(eight_words)
+
+    response = make_response()
+
+    response.headers['Content-Type'] = 'application/pdf'
+
+    response.headers['Content-Disposition'] = 'attachment; filename="report.pdf"'
+
+    buffer = BytesIO()
+    c = canvas.Canvas(buffer, pagesize=letter)
+
+    text_width = 6.5 * inch  
+    text_height = 9 * inch   
+
+    x = (letter[0] - text_width) / 2
+    y = (letter[1] - text_height) / 2
+
+    c.rect(x, y, text_width, text_height)
+
+    text = c.beginText(x + 10, y + text_height - 20)
+
+    text.setFont("Helvetica", 12)  
+
+    for line in eight_word_elements:
+        text.textLine(line)
+
+    c.drawText(text)
+
+    c.showPage()
+    c.save()
+
+    response.data = buffer.getvalue()
+
+    buffer.close()
+
+    return response
 if __name__ == "__main__":
     app.run(debug=True, port=4999)

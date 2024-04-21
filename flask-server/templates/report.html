@@ -19,7 +19,7 @@
 
 
 
-        <title>MeddiBuddy</title>
+        <title>MediBuddy</title>
     </head>
     <body>
 
@@ -98,22 +98,23 @@
 
                 <div class="menu__container bd-grid">
                     <div class="menu__content">
-                        <img src="../static/assets/img/pill.png" alt="" class="menu__img">
+                        <img src="../static/assets/img/helping.png" alt="" class="menu__img">
                         <form action="/add_patient" method="post">
                             <h3>Add Patient</h3>
-                            <button type="submit" class="button menu__button"><i class='bx bx-chevron-right'></i></button>
+                            <button type="submit" class="button menu__button"><i class='bx bx-add-to-queue'></i></button>
                         </form>
                     </div>
-                
                     <div class="menu__content">
-                        <img src="../static/assets/img/first aid.png" alt="" class="menu__img">
+                        <img src="../static/assets/img/Alone.png" alt="" class="menu__img">
                         <form action="/add_to_existing_patient" method="post">
                             <h3>Add to Existing Patient</h3>
-                            <button type="submit" class="button menu__button"><i class='bx bx-chevron-right'></i></button>
+                            <div class="form__group field">
+                                <input type="input" class="form__field" placeholder="ID" name="ID" id="ID">
+                                <label for="ID" class="form__label">Patient ID</label>
+                            </div>
+                            <button type="submit" class="button menu__button"><i class='bx bx-add-to-queue'></i></button>
                         </form>
                     </div>
-                
-                
                     <div class="menu__content">
                         <img src="../static/assets/img/clipboard.png" alt="" class="menu__img">
                         <form action="/export_report" method="post">
