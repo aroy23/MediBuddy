@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import csv
@@ -124,6 +124,17 @@ def write_person_data_to_csv(people_data, filename):
 
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+db = SQLAlchemy(app)
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True, nullable=False)
+    password = db.Column(db.String(80), nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+
+with app.app_context():
+    db.create_all()
 
 @app.route('/')
 def index():
@@ -206,13 +217,24 @@ def processcancerinput():
 def signin():
     username = request.form['username']
     password = request.form['password']
-    return render_template('index.html')
+
+    user = User.query.filter_by(username=username, password=password).first()
+
+    if user:
+        return render_template('index.html')
+    else:
+        return render_template('sign.html', error='Invalid username or password')
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     username = request.form['username']
     password = request.form['password']
     email = request.form['email']
+
+    new_user = User(username=username, password=password, email=email)
+    db.session.add(new_user)
+    db.session.commit()
+
     return render_template('index.html')
     
 
