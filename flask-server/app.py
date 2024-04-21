@@ -137,6 +137,10 @@ def sign():
 def framework():
     return render_template('framework.html')
 
+@app.route('/report', methods=['GET', 'POST'])
+def report():
+    return render_template('report.html')
+
 @app.route('/processdbinput', methods=['GET', 'POST'])
 def processdbinput():
     if request.method == 'POST':
@@ -156,7 +160,7 @@ def processdbinput():
         write_person_data_to_csv(patientdbdata, 'diabetes.csv')
         getDiabetesData()
         
-    return render_template('framework.html')
+    return render_template('report.html')
 
 @app.route('/processkidneyinput', methods=['GET', 'POST'])
 def processkidneyinput():
@@ -176,7 +180,7 @@ def processkidneyinput():
         patientdbdata = [get_person_data_from_input()]
         write_person_data_to_csv(patientdbdata, 'kidney.csv')
         getKidneyData()
-    return render_template('framework.html')
+    return render_template('report.html')
 
 @app.route('/processcancerinput', methods=['GET', 'POST'])
 def processcancerinput():
@@ -196,7 +200,7 @@ def processcancerinput():
         patientdbdata = [get_person_data_from_input()]
         write_person_data_to_csv(patientdbdata, 'cancer.csv')
         getCancerData()
-    return render_template('framework.html')
+    return render_template('report.html')
     
 
 
