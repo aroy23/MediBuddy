@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify, make_response
+from flask import Flask, render_template, request, redirect, url_for, jsonify, make_response, send_file
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import csv
@@ -216,9 +216,12 @@ def sign():
 def framework():
     return render_template('framework.html')
 
-@app.route('/profile', methods=['GET', 'POST'])
-def profile():
-    return render_template('profile.html')
+@app.route('/viewerbutton', methods=['GET', 'POST'])
+def viewerbutton():
+    if currentUser == None:
+        return render_template('index.html')
+    csv_file = f"{currentUser}.csv"
+    return send_file(csv_file, as_attachment=True)
 
 @app.route('/report', methods=['GET', 'POST'])
 def report():
@@ -321,6 +324,8 @@ def signup():
     
 @app.route('/add_patient', methods=['GET', 'POST'])
 def addPatient():
+    if currentUser == None:
+        return render_template('index.html')
     if request.method == 'POST':
         # Assuming the current user is stored in a variable called currentUser
         # Open the current user's CSV file
@@ -350,6 +355,8 @@ def addPatient():
     
 @app.route('/add_to_existing_patient', methods=['GET', 'POST'])
 def addToExisting():
+    if currentUser == None:
+        return render_template('index.html')
     stringy1 = format_markdown(genText)
     fileFromField = f"{currentUser}.csv"
     if request.method == 'POST':

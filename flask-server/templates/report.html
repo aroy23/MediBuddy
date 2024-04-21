@@ -19,7 +19,7 @@
 
 
 
-        <title>MeddiBuddy</title>
+        <title>MediBuddy</title>
     </head>
     <body>
 
@@ -81,7 +81,7 @@
             <section class="about section bd-container" id="about">
                 <div class="text__container  bd-grid">
                     <div class="about__data">
-                        <h2 class="section-title text__initial">Report Generated Just for You</h2>
+                        <h2 class="section-title text__initial">Personalized Generated Report</h2>
                         <p class="text__description">{{ generated_text }} </p>
                     </div>
 
@@ -97,19 +97,19 @@
                     <div class="menu__content">
                         <img src="../static/assets/img/helping.png" alt="" class="menu__img">
                         <form action="/add_patient" method="post">
-                            <h3>Add Patient</h3>
+                            <h3>Add Patient (Sign In)</h3>
                             <button type="submit" class="button menu__button"><i class='bx bx-add-to-queue'></i></button>
                         </form>
                     </div>
                     <div class="menu__content">
                         <img src="../static/assets/img/Alone.png" alt="" class="menu__img">
                         <form action="/add_to_existing_patient" method="post">
-                            <h3>Add to Existing Patient</h3>
+                            <h3>Add to Existing Patient (Sign In)</h3>
                             <div class="form__group field">
-                                <input type="number" class="form__field" placeholder="ID" name="ID" id="ID" required step="any">
+                                <input type="number" class="form__field" placeholder="ID" name="ID" id="ID" required>
                                 <label for="ID" class="form__label">Patient ID</label>
                             </div>
-                            <button type="submit" class="button menu__button"><i class='bx bx-add-to-queue'></i> Submit</button>
+                            <button type="submit" class="button menu__button"><i class='bx bx-add-to-queue'></i></button>
                         </form>
                     </div>
                     <div class="menu__content">
@@ -126,7 +126,7 @@
         <footer class="footer section bd-container">
             <div class="footer__container bd-grid">
                 <div class="footer__content">
-                    <a href="#" class="footer__logo">MediBuddy</a>
+                    <a href="{{ url_for('index') }}" class="footer__logo">MediBuddy</a>
                     <span class="footer__description">Health Services</span>
                     <div>
                         <a href="https://www.instagram.com/cho1dorj/" target="_blank" class="footer__social"><i class='bx bxl-instagram'></i></a>
@@ -143,6 +143,7 @@
                     <h3 class="footer__title">Services</h3>
                     <ul>
                         <li><a href="{{ url_for('framework') }}" class="footer__link">Diagnosis Check</a></li>
+                        <li><a href="{{ url_for('viewerbutton') }}" class="footer__link"> Patient Database</a></li>
                     </ul>
                 </div>
 

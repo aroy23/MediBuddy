@@ -85,13 +85,6 @@
 
 
                 <div class="menu__container bd-grid">
-                    <div class="menu__content">
-                        <img src="../static/assets/img/pill.png" alt="" class="menu__img">
-                        <h3 class="menu__name">All Your Data In One Place</h3>
-                        <span class="menu__detail"></span>
-                        <span class="menu__preci"></span>
-                        <a href="{{ url_for('profile') }}" class="button menu__button"><i class='bx bx-chevron-right'></i></a>
-                    </div>
 
                     <div class="menu__content">
                         <img src="../static/assets/img/first aid.png" alt="" class="menu__img">
@@ -107,6 +100,23 @@
                         <span class="menu__detail">For Patients</span>
                         <span class="menu__preci"></span>
                     </div>
+
+
+                    <div class="menu__content">
+                        <img src="../static/assets/img/pill.png" alt="" class="menu__img">
+                        <h3 class="menu__name">All Your Data In One Place</h3>
+                        <span class="menu__detail"></span>
+                        <span class="menu__preci"></span>
+                        <form action="/viewerbutton" method="POST">
+                            <div class="profile__content">
+                                <div class="submitbutton" id="submitbutton">
+                                    <input type="submit" class="buttoninput" value="View (Sign In)">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    
                    
                     
                 </div>
@@ -132,6 +142,7 @@
                     <h3 class="footer__title">Services</h3>
                     <ul>
                         <li><a href="{{ url_for('framework') }}" class="footer__link">Diagnosis Check</a></li>
+                        <li><a href="{{ url_for('viewerbutton') }}" class="footer__link"> Patient Database</a></li>
                     </ul>
                 </div>
 
