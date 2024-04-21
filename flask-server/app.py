@@ -34,7 +34,6 @@ def format_markdown(input_string):
 def printToGemini(arg:str):
     genai.configure(api_key="AIzaSyDVJS1744dqs1WtNEflRiUSEgqGQzhIrRQ")
 
-    # Set up the model
     generation_config = {
     "temperature": 1,
     "top_p": 0.95,
@@ -176,15 +175,13 @@ def getCancerData():
 
 def write_person_data_to_csv(people_data, filename):
     file_exists = os.path.isfile(filename)
-    with open(filename, 'a', newline='') as csvfile:  # Use 'a' mode to append to existing file
+    with open(filename, 'a', newline='') as csvfile: 
         csv_writer = csv.writer(csvfile)
 
-        # Write headers if the file doesn't exist
         if not file_exists:
             headers = [key for key, _ in people_data[0]]
             csv_writer.writerow(headers)
 
-        # Write data for each person
         for person in people_data:
             data = [value for _, value in person]
             csv_writer.writerow(data)
@@ -327,12 +324,10 @@ def addPatient():
     if currentUser == None:
         return render_template('index.html')
     if request.method == 'POST':
-        # Assuming the current user is stored in a variable called currentUser
-        # Open the current user's CSV file
+
         csv_file = f"{currentUser}.csv"
         fieldnames = ['patient', 'latest_report']
         
-        # Determine the next incremental number
         next_patient_number = 1
         try:
             with open(csv_file, 'r', newline='') as csvfile:
@@ -340,12 +335,10 @@ def addPatient():
                 for row in reader:
                     next_patient_number = int(row['patient']) + 1
         except FileNotFoundError:
-            # If the file doesn't exist, create a new one
             with open(csv_file, 'w', newline='') as csvfile:
                 writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
                 writer.writeheader()
 
-        # Append the new data to the file
         with open(csv_file, 'a', newline='') as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             writer.writerow({'patient': next_patient_number, 'latest_report': format_markdown(genText)})
@@ -360,12 +353,11 @@ def addToExisting():
     stringy1 = format_markdown(genText)
     fileFromField = f"{currentUser}.csv"
     if request.method == 'POST':
-        input_number = request.form['ID']  # Assuming input_number is submitted via the form
-        s = format_markdown(genText)  # Assuming h is submitted via the form        
+        input_number = request.form['ID'] 
+        s = format_markdown(genText)       
         if input_number and s and currentUser:
             fileFromField = f"{currentUser}.csv"
             
-            # Read the CSV file and update if necessary
             with open(fileFromField, 'r', newline='') as csvfile:
                 reader = csv.reader(csvfile)
                 rows = list(reader)
@@ -374,9 +366,9 @@ def addToExisting():
                     if row[0] == input_number:
                         row[1] = stringy1
                         found = True
-                        break  # No need to continue searching
+                        break 
             if found:
-                # Rewrite the updated rows back to the CSV file
+
                 with open(fileFromField, 'w', newline='') as csvfile:
                     writer = csv.writer(csvfile)
                     writer.writerows(rows)

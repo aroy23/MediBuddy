@@ -5,13 +5,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
-        <!--========== BOX ICONS ==========-->
         <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
 
 
 
 
-        <!--========== CSS ==========-->
         <link rel="stylesheet" href="../static/assets/css/styles.css">
 
 
@@ -61,7 +59,6 @@
 
 
         <main class="l-main">
-            <!-- Sign-in form -->
             <section class="form section bd-container" id="signin">
                 <div class="form__container bd-grid">
                     <div class="form__data">
@@ -80,7 +77,6 @@
                 </div>
             </section>
        
-            <!-- Sign-up form -->
             <section class="form section bd-container" id="signup" style="display: none;">
                 <div class="form__container bd-grid">
                     <div class="form__data">
@@ -106,7 +102,6 @@
 
 
 
-        <!--========== SCROLL REVEAL ==========-->
         <script src="https://unpkg.com/scrollreveal"></script>
 
 
@@ -117,26 +112,25 @@
             const signupSection = document.getElementById('signup');
    
             signinButton.addEventListener('click', () => {
-                signinButton.style.display = 'none'; // Hide the Sign In button
-                signupButton.style.display = 'inline-block'; // Show the Sign Up button
-                signinSection.style.display = 'block'; // Show the Sign In section
-                signupSection.style.display = 'none'; // Hide the Sign Up section
+                signinButton.style.display = 'none'; 
+                signupButton.style.display = 'inline-block'; 
+                signinSection.style.display = 'block'; 
+                signupSection.style.display = 'none'; 
             });
    
             signupButton.addEventListener('click', () => {
-                signinButton.style.display = 'inline-block'; // Show the Sign In button
-                signupButton.style.display = 'none'; // Hide the Sign Up button
-                signinSection.style.display = 'none'; // Hide the Sign In section
-                signupSection.style.display = 'block'; // Show the Sign Up section
+                signinButton.style.display = 'inline-block'; 
+                signupButton.style.display = 'none'; 
+                signinSection.style.display = 'none'; 
+                signupSection.style.display = 'block'; 
             });
    
-            // By default, show the sign-in section and hide the sign-up section
             signinSection.style.display = 'block';
             signupSection.style.display = 'none';
         </script>
 
 
-        <!--========== MAIN JS ==========-->
+
         <script src="../static/assets/js/main.js"></script>
     </body>
 </html>

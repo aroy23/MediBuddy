@@ -1,11 +1,8 @@
-/*===== GOOGLE FONTS =====*/
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
 
-/*===== VARIABLES CSS =====*/
 :root {
   --header-height: 3rem;
 
-  /*========== Colors ==========*/
   --first-color: #2579be;
   --first-color-alt: #046586;
   --title-color: #393939;
@@ -14,7 +11,6 @@
   --body-color: #FBFEFD;
   --container-color: #FFFFFF;
 
-  /*========== Font and typography ==========*/
   --body-font: 'Poppins', sans-serif;
   --biggest-font-size: 2.25rem;
   --h1-font-size: 1.5rem;
@@ -24,11 +20,9 @@
   --small-font-size: .813rem;
   --smaller-font-size: .75rem;
 
-  /*========== Font weight ==========*/
   --font-medium: 500;
   --font-semi-bold: 600;
 
-  /*========== Margenes ==========*/
   --mb-1: .5rem;
   --mb-2: 1rem;
   --mb-3: 1.5rem;
@@ -36,7 +30,6 @@
   --mb-5: 2.5rem;
   --mb-6: 3rem;
 
-  /*========== z index ==========*/
   --z-tooltip: 10;
   --z-fixed: 100;
 }
@@ -53,7 +46,6 @@
   }
 }
 
-/*========== BASE ==========*/
 *,::before,::after{
   box-sizing: border-box;
 }
@@ -62,7 +54,6 @@ html{
   scroll-behavior: smooth;
 }
 
-/*========== Variables Dark theme ==========*/
 body.dark-theme{
   --title-color: #f1f3f2;
   --text-color: #c7d1cc;
@@ -70,7 +61,6 @@ body.dark-theme{
   --container-color: #272830;
 }
 
-/*========== Button Dark/Light ==========*/
 .change-theme{
   position: absolute;
   right: 1rem;
@@ -107,7 +97,6 @@ img{
   height: auto;
 }
 
-/*========== CLASS CSS ==========*/
 .section{
   padding: 4rem 0 2rem;
 }
@@ -135,7 +124,6 @@ img{
   margin-bottom: var(--mb-1);
 }
 
-/*========== LAYOUT ==========*/
 .bd-container{
   max-width: 960px;
   width: calc(100% - 2rem);
@@ -157,7 +145,6 @@ img{
   background-color: var(--body-color);
 }
 
-/*========== NAV ==========*/
 .nav{
   max-width: 1024px;
   height: var(--header-height);
@@ -208,22 +195,18 @@ img{
   cursor: pointer;
 }
 
-/* Show menu */
 .show-menu{
   top: var(--header-height);
 }
 
-/* Active menu */
 .active-link{
   color: var(--first-color);
 }
 
-/* Change background header */
 .scroll-header{
   box-shadow: 0 2px 4px rgba(0,0,0,.1);
 }
 
-/* Scroll top */
 .scrolltop{
   position: fixed;
   right: 1rem;
@@ -248,13 +231,11 @@ img{
   color: var(--body-color);
 }
 
-/* Show scrolltop */
 .show-scroll{
   visibility: visible;
   bottom: 1.5rem;
 }
 
-/*========== HOME ==========*/
 .home__container{
   height: calc(100vh - var(--header-height));
   align-content: center;
@@ -277,7 +258,6 @@ img{
   justify-self: center;
 }
 
-/*========== BUTTONS ==========*/
 .button{
   display: inline-block;
   background-color: var(--first-color);
@@ -300,7 +280,6 @@ img{
   background-color: var(--first-color-alt);
 }
 
-/*========== ABOUT ==========*/
 .about__data{
   text-align: center;
 }
@@ -315,7 +294,6 @@ img{
   justify-self: center;
 }
 
-/*========== SERVICES ==========*/
 .services__container{
   row-gap: 2.5rem;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -342,7 +320,6 @@ img{
   padding: 0 1.5rem;
 }
 
-/*========== MENU ==========*/
 .menu__container{
   grid-template-columns: repeat(2, 1fr);
   justify-content: center;
@@ -390,7 +367,6 @@ img{
   border-radius: .5rem 0 .5rem 0;
 }
 
-/*========== CONTACT ==========*/
 .contact__container{
   text-align: center;
 }
@@ -399,7 +375,6 @@ img{
   margin-bottom: var(--mb-3);
 }
 
-/*========== FOOTER ==========*/
 .footer__container{
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   row-gap: 2rem;
@@ -446,7 +421,6 @@ img{
   margin-top: 3.5rem;
 }
 
-/*========== MEDIA QUERIES ==========*/
 @media screen and (min-width: 576px){
   .home__container,
   .about__container,
@@ -545,7 +519,6 @@ img{
   }
 }
 
-/* For tall screens on mobiles y desktop*/
 @media screen and (min-height: 721px) {
     .home__container {
         height: 640px;
@@ -619,7 +592,6 @@ input[type="password"]:focus {
 }
 
 
-/* Additional Styles */
 #signin {
   display: block;
 }
@@ -629,7 +601,6 @@ input[type="password"]:focus {
   display: none;
 }
 
-/*=========================================*/
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap');
 
 *,
@@ -880,7 +851,7 @@ c .uil {
   font-size: 20px;
 }
 
-/*=========================================*/
+
 
 .form__group {
   position: relative;
@@ -937,7 +908,6 @@ c .uil {
   border-image: linear-gradient(to right, --first-color,--text-color);
   border-image-slice: 1;
 }
-/* reset input */
 .form__field{
   &:required,&:invalid { box-shadow:none; }
 }
@@ -950,7 +920,6 @@ c .uil {
 .dropdown-container, .form-container {
   margin-bottom: 20px;
 }
-/*========== text ==========*/
 .text__data{
   text-align: center;
   margin-left: 100px;
