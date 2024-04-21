@@ -201,6 +201,19 @@ def processcancerinput():
         write_person_data_to_csv(patientdbdata, 'cancer.csv')
         getCancerData()
     return render_template('report.html')
+
+@app.route('/signin', methods=['GET', 'POST'])
+def signin():
+    username = request.form['username']
+    password = request.form['password']
+    return render_template('index.html')
+
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    username = request.form['username']
+    password = request.form['password']
+    email = request.form['email']
+    return render_template('index.html')
     
 
 
