@@ -83,7 +83,7 @@ def getDiabetesData():
     file_name = os.path.splitext('diabetes.csv')[0]
     for idx, prediction in enumerate(predictions):
         if prediction == 1:
-            argtrue = "Say: This Person likely has diabetes. After saying that, Suggest a plan they could take to reduce risk factors. Mention diet regarding bmi, glucose, calcium, iron, excercise, and mental health. Remind the patient to consult their doctor for further medical advice."
+            argtrue = "Say in a continuous paragraph with no markdown formatting and assume that this person has diabetes: This person likely has diabetes. After saying that, Suggest a plan they could take to reduce risk factors. Mention diet regarding BMI, glucose, calcium, iron, exercise, and mental health. Remind the patient to consult their doctor for further medical advice. Being the paragraph with what sounds like a definitive diagnosis. Also pretend that this paragraph is a doctor's report to a patient."
             printToGemini(argtrue)
         else:
             argtrue = "Say: This Person likely does not have diabetes. After saying that, suggest a plan maintains good health practices, involving physical, mental, and emotional health regarding preventing diabetes. Remind the patient to consult their doctor for further medical advice."
@@ -296,8 +296,17 @@ def signup():
         db.session.rollback()
         error_message = "Username or email already exists. Please choose a different one."
         return render_template('sign.html', error=error_message)    
+    
+@app.route('/add_patient', methods=['GET', 'POST'])
+def addPatient():
+    return
 
+@app.route('/add_to_existing_patient', methods=['GET', 'POST'])
+def addToExisting():
+    return
 
-
+@app.route('/export_report', methods=['GET', 'POST'])
+def export():
+    return 
 if __name__ == "__main__":
     app.run(debug=True, port=4999)
