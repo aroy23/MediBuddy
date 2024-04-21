@@ -19,7 +19,7 @@
 
 
 
-        <title>MediBuddy</title>
+        <title>MeddiBuddy</title>
     </head>
     <body>
 
@@ -45,7 +45,6 @@
                         <li class="nav__item"><a href="{{ url_for('index') }}" class="nav__link">Home</a></li>
                         <li class="nav__item"><a href="{{ url_for('index') }}" class="nav__link">About</a></li>
                         <li class="nav__item"><a href="{{ url_for('index') }}" class="nav__link">Services</a></li>
-                        <li class="nav__item"><a href="{{ url_for('sign') }}" class="nav__link">Login</a></li>
 
 
 
@@ -64,8 +63,6 @@
         </header>
 
 
-
-
         <main class="l-main">
             <!--========== HOME ==========-->
             <section class="home" id="home">
@@ -79,7 +76,7 @@
                     <img src="../static/assets/img/logo.png" alt="" class="home__img">
                 </div>
             </section>
-           
+            
             <!--========== ABOUT ==========-->
             <section class="about section bd-container" id="about">
                 <div class="text__container  bd-grid">
@@ -109,10 +106,10 @@
                         <form action="/add_to_existing_patient" method="post">
                             <h3>Add to Existing Patient</h3>
                             <div class="form__group field">
-                                <input type="input" class="form__field" placeholder="ID" name="ID" id="ID">
+                                <input type="number" class="form__field" placeholder="ID" name="ID" id="ID" required step="any">
                                 <label for="ID" class="form__label">Patient ID</label>
                             </div>
-                            <button type="submit" class="button menu__button"><i class='bx bx-add-to-queue'></i></button>
+                            <button type="submit" class="button menu__button"><i class='bx bx-add-to-queue'></i> Submit</button>
                         </form>
                     </div>
                     <div class="menu__content">
@@ -123,7 +120,6 @@
                         </form>
                     </div>
                 </div>
-                
             </section>
 
         <!--========== FOOTER ==========-->

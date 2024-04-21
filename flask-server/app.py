@@ -216,6 +216,10 @@ def sign():
 def framework():
     return render_template('framework.html')
 
+@app.route('/profile', methods=['GET', 'POST'])
+def profile():
+    return render_template('profile.html')
+
 @app.route('/report', methods=['GET', 'POST'])
 def report():
     global genText

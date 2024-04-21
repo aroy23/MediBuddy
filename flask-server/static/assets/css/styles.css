@@ -973,3 +973,14 @@ c .uil {
   margin-left: var(--mb-2);
   margin-right: var(--mb-2);
 }
+.profile__content{
+  text-align: center;
+}
+.profile__logo {
+  font-size: var(--h3-font-size);
+  color: var(--first-color);
+  font-weight: var(--font-semi-bold);
+  align-content: center;
+}
+
+
