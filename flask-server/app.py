@@ -223,7 +223,7 @@ def signin():
     if user:
         return render_template('index.html')
     else:
-        return render_template('sign.html', error='Invalid username or password')
+        return render_template('sign.html', error="Try Again: Invalid username or password")
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
