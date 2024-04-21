@@ -25,15 +25,15 @@
 
         <header class="l-header" id="header">
             <nav class="nav bd-container">
-                <a href="index.html" class="nav__logo">MediBuddy</a>
+                <a href="{{ url_for('index') }}" class="nav__logo">MediBuddy</a>
 
 
                 <div class="nav__menu" id="nav-menu">
                     <ul class="nav__list">
-                        <li class="nav__item"><a href="index.html" class="nav__link">Home</a></li>
-                        <li class="nav__item"><a href="index.html#about" class="nav__link">About</a></li>
-                        <li class="nav__item"><a href="index.html#menu" class="nav__link">Services</a></li>
-                        <li class="nav__item"><a href="sign.html" class="nav__link">Login</a></li>
+                        <li class="nav__item"><a href="{{ url_for('index') }}" class="nav__link">Home</a></li>
+                        <li class="nav__item"><a href="{{ url_for('index') }}" class="nav__link">About</a></li>
+                        <li class="nav__item"><a href="{{ url_for('index') }}" class="nav__link">Services</a></li>
+                        <li class="nav__item"><a href="{{ url_for('sign') }}" class="nav__link">Login</a></li>
 
 
                         <li><i class='bx bx-moon change-theme' id="theme-button"></i></li>
@@ -65,75 +65,93 @@
                     </div> 
                 </div>
                 <div class="form-container" id="formContainer">
-                    <div id="diabetesField" style="display:none;">
-                        <div class="form__group field">
-                            <input type="input" class="form__field" placeholder="Age" name="age" id='age' required />
-                            <label for="age" class="form__label">Age</label>
+                    <form action="/processdbinput" method="POST">
+                        <div id="diabetesField" style="display:none;">
+                            <div class="form__group field">
+                                <input type="input" class="form__field" placeholder="Age" name="age" id='age' required />
+                                <label for="age" class="form__label">Age</label>
+                            </div>
+                            <div class="form__group field">
+                                <input type="input" class="form__field" placeholder="BMI" name="bmi" id='bmi' required />
+                                <label for="bmi" class="form__label">BMI</label>
+                            </div>
+                            <div class="form__group field">
+                                <input type="input" class="form__field" placeholder="Glucose" name="glucose" id='glucose' required />
+                                <label for="glucose" class="form__label">Glucose</label>
+                            </div>
+                            <div class="form__group field">
+                                <input type="input" class="form__field" placeholder="Iron" name="iron" id='iron' required />
+                                <label for="iron" class="form__label">Iron</label>
+                            </div>
+                            <div class="form__group field">
+                                <input type="input" class="form__field" placeholder="Calcium" name="calcium" id='calcium' required />
+                                <label for="calcium" class="form__label">Calcium</label>
+                            </div>
+                            <div class="form__group field">
+                                <div class="submitbutton" id="submitbutton">
+                                    <input type="submit" class="buttoninput" value="Submit">
+                                </div>
+                            </div>
                         </div>
-                        <div class="form__group field">
-                            <input type="input" class="form__field" placeholder="BMI" name="bmi" id='bmi' required />
-                            <label for="bmi" class="form__label">BMI</label>
-                        </div>
-                        <div class="form__group field">
-                            <input type="input" class="form__field" placeholder="Glucose" name="glucose" id='glucose' required />
-                            <label for="glucose" class="form__label">Glucose</label>
-                        </div>
-                        <div class="form__group field">
-                            <input type="input" class="form__field" placeholder="Iron" name="iron" id='iron' required />
-                            <label for="iron" class="form__label">Iron</label>
-                        </div>
-                        <div class="form__group field">
-                            <input type="input" class="form__field" placeholder="Calcium" name="calcium" id='calcium' required />
-                            <label for="calcium" class="form__label">Calcium</label>
-                        </div>
-                    </div> 
-                    <div id="kidneyField" style="display:none;">
-                        <div class="form__group field">
-                            <input type="input" class="form__field" placeholder="Age" name="age" id='age' required />
-                            <label for="age" class="form__label">Age</label>
-                        </div>
-                        <div class="form__group field">
-                            <input type="input" class="form__field" placeholder="BMI" name="bmi" id='bmi' required />
-                            <label for="bmi" class="form__label">BMI</label>
-                        </div>
-                        <div class="form__group field">
-                            <input type="input" class="form__field" placeholder="Electrolyte" name="electrolyte" id='electrolyte' required />
-                            <label for="electrolyte" class="form__label">Electrolyte Levels</label>
-                        </div>
-                        <div class="form__group field">
-                            <input type="input" class="form__field" placeholder="Creatinine" name="creatine" id='creatine' required />
-                            <label for="creatine" class="form__label">Serum Creatinine</label>
-                        </div>
-                        <div class="form__group field">
-                            <input type="input" class="form__field" placeholder="Nitrogen" name="nitrogen" id='nitrogen' required />
-                            <label for="nitrogen" class="form__label">Blood Urea Nitrogen</label>
-                        </div>
-                    </div> 
-                    <div id="cancerField" style="display:none;">
-                        <div class="form__group field">
-                            <input type="input" class="form__field" placeholder="Age" name="age" id='age' required />
-                            <label for="age" class="form__label">Age</label>
-                        </div>
-                        <div class="form__group field">
-                            <input type="input" class="form__field" placeholder="BMI" name="bmi" id='bmi' required />
-                            <label for="bmi" class="form__label">BMI</label>
-                        </div>
-                        <div class="form__group field">
-                            <input type="input" class="form__field" placeholder="WBC" name="wbc" id='wbc' required />
-                            <label for="wbc" class="form__label">White Blood Cell Count</label>
-                        </div>
-                        <div class="form__group field">
-                            <input type="input" class="form__field" placeholder="CEA" name="cea" id='cea' required />
-                            <label for="cea" class="form__label">CEA Levels</label>
-                        </div>
-                        <div class="form__group field">
-                            <input type="input" class="form__field" placeholder="AF" name="af" id='af' required />
-                            <label for="af" class="form__label">Alpha-Fetoprotein</label>
-                        </div>
-                    </div> 
-                </div>
-                <div class="submitbutton" id="submitbutton">
-                    <a href="#" class="buttoninput">Submit</a>
+                    </form>
+                    <form action="/processkidneyinput" method="POST">
+                        <div id="kidneyField" style="display:none;">
+                            <div class="form__group field">
+                                <input type="input" class="form__field" placeholder="Age" name="age" id='age' required />
+                                <label for="age" class="form__label">Age</label>
+                            </div>
+                            <div class="form__group field">
+                                <input type="input" class="form__field" placeholder="BMI" name="bmi" id='bmi' required />
+                                <label for="bmi" class="form__label">BMI</label>
+                            </div>
+                            <div class="form__group field">
+                                <input type="input" class="form__field" placeholder="Electrolyte" name="electrolyte" id='electrolyte' required />
+                                <label for="electrolyte" class="form__label">Electrolyte Levels</label>
+                            </div>
+                            <div class="form__group field">
+                                <input type="input" class="form__field" placeholder="Creatinine" name="creatine" id='creatine' required />
+                                <label for="creatine" class="form__label">Serum Creatinine</label>
+                            </div>
+                            <div class="form__group field">
+                                <input type="input" class="form__field" placeholder="Nitrogen" name="nitrogen" id='nitrogen' required />
+                                <label for="nitrogen" class="form__label">Blood Urea Nitrogen</label>
+                            </div>
+                            <div class="form__group field">
+                                <div class="submitbutton" id="submitbutton">
+                                    <input type="submit" class="buttoninput" value="Submit">
+                                </div>
+                            </div>
+                        </div> 
+                    </form>
+                    <form action="/processcancerinput" method="POST">
+                        <div id="cancerField" style="display:none;">
+                            <div class="form__group field">
+                                <input type="input" class="form__field" placeholder="Age" name="age" id='age' required />
+                                <label for="age" class="form__label">Age</label>
+                            </div>
+                            <div class="form__group field">
+                                <input type="input" class="form__field" placeholder="BMI" name="bmi" id='bmi' required />
+                                <label for="bmi" class="form__label">BMI</label>
+                            </div>
+                            <div class="form__group field">
+                                <input type="input" class="form__field" placeholder="WBC" name="wbc" id='wbc' required />
+                                <label for="wbc" class="form__label">White Blood Cell Count</label>
+                            </div>
+                            <div class="form__group field">
+                                <input type="input" class="form__field" placeholder="CEA" name="cea" id='cea' required />
+                                <label for="cea" class="form__label">CEA Levels</label>
+                            </div>
+                            <div class="form__group field">
+                                <input type="input" class="form__field" placeholder="AF" name="af" id='af' required />
+                                <label for="af" class="form__label">Alpha-Fetoprotein</label>
+                            </div>
+                            <div class="form__group field">
+                                <div class="submitbutton" id="submitbutton">
+                                    <input type="submit" class="buttoninput" value="Submit">
+                                </div>
+                            </div>
+                        </div> 
+                    </form>
                 </div>
             </div>
         </body1>
@@ -169,7 +187,7 @@
                 <div class="footer__content">
                     <h3 class="footer__title">Information</h3>
                     <ul>
-                        <li><a href="#" class="footer__link">About Us</a></li>
+                        <li><a href="{{ url_for('index') }}" class="footer__link">About Us</a></li>
                         <li><a href="#" class="footer__link">Contact Us</a></li>
                     </ul>
                 </div>

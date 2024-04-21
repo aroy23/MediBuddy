@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="../static/assets/css/styles.css">
 
 
-        <title>MeddiBuddy</title>
+        <title>MediBuddy</title>
     </head>
     <body>
 
@@ -33,7 +33,7 @@
                         <li class="nav__item"><a href="#home" class="nav__link active-link">Home</a></li>
                         <li class="nav__item"><a href="#about" class="nav__link">About</a></li>
                         <li class="nav__item"><a href="#menu" class="nav__link">Services</a></li>
-                        <li class="nav__item"><a href="sign.html" class="nav__link">Login</a></li>
+                        <li class="nav__item"><a href="{{ url_for('sign') }}" class="nav__link">Login</a></li>
 
 
                         <li><i class='bx bx-moon change-theme' id="theme-button"></i></li>
@@ -55,7 +55,7 @@
                     <div class="home__data">
                         <h1 class="home__title">MediBuddy</h1>
                         <h2 class="home__subtitle">Your Health Companion, <br> Every Step of the Way</h2>
-                        <a href="sign.html" class="button">Get Started</a>
+                        <a href="{{ url_for('sign') }}" class="button">Get Started</a>
                     </div>
    
                     <img src="../static/assets/img/logo.png" alt="" class="home__img">
@@ -90,7 +90,7 @@
                         <h3 class="menu__name">Diagnosis Reinforcement</h3>
                         <span class="menu__detail">For Doctors</span>
                         <span class="menu__preci"></span>
-                        <a href="framework.html" class="button menu__button"><i class='bx bx-chevron-right'></i></a>
+                        <a href="{{ url_for('framework') }}" class="button menu__button"><i class='bx bx-chevron-right'></i></a>
                     </div>
 
                     <div class="menu__content">

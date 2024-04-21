@@ -29,17 +29,17 @@
 
         <header class="l-header" id="header">
             <nav class="nav bd-container">
-                <a href="index.html" class="nav__logo">MediBuddy</a>
+                <a href="{{ url_for('index') }}" class="nav__logo">MediBuddy</a>
 
 
 
 
                 <div class="nav__menu" id="nav-menu">
                     <ul class="nav__list">
-                        <li class="nav__item"><a href="index.html" class="nav__link">Home</a></li>
-                        <li class="nav__item"><a href="index.html#about" class="nav__link">About</a></li>
-                        <li class="nav__item"><a href="index.html#menu" class="nav__link">Services</a></li>
-                        <li class="nav__item"><a href="sign.html" class="nav__link active-link">Login</a></li>
+                        <li class="nav__item"><a href="{{ url_for('index') }}" class="nav__link">Home</a></li>
+                        <li class="nav__item"><a href="{{ url_for('index') }}" class="nav__link">About</a></li>
+                        <li class="nav__item"><a href="{{ url_for('index') }}" class="nav__link">Services</a></li>
+                        <li class="nav__item"><a href="{{ url_for('sign') }}" class="nav__link active-link">Login</a></li>
 
 
 
