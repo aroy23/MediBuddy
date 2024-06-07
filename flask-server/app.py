@@ -32,7 +32,7 @@ def format_markdown(input_string):
     return input_string.replace("*", "")
 
 def printToGemini(arg:str):
-    genai.configure(api_key="AIzaSyDVJS1744dqs1WtNEflRiUSEgqGQzhIrRQ")
+    genai.configure(api_key="API_KEY")
 
     generation_config = {
     "temperature": 1,
