@@ -1,6 +1,7 @@
 # MediBuddy
 
-**Recipient of the first-place prize at LA Hacks for the Patient Safety Technology Challenge**
+**Recipient of the first-place prize at LA Hacks for the Patient Safety Technology Challenge**<br>
+https://www.youtube.com/watch?v=SwraWbc5kDg
 
 ## Inspiration
 
