@@ -16,7 +16,7 @@ MediBuddy is a website powered by a machine learning disease prediction model ai
 ### Roles:
 
 - **Choidorj Bayarkhuu:** Primary frontend developer (CS @ UCLA)
-- **Arnav Roy:** Primary backend logic developer, front end, machine learning (CS @ UCLA)
+- **Arnav Roy:** Primary backend logic developer, machine learning (CS @ UCLA)
 - **Stanley Sha:** Backend developer and presentation contributor (CS @ UCI)
 - **Emma Wu:** Data processing, frontend developer, Gemini Integration, and presentation lead (STATS + DS @ UCLA)
 
