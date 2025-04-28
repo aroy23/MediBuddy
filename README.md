@@ -1,6 +1,6 @@
 # MediBuddy
 
-**Recipient of the first-place prize at LA Hacks for the Patient Safety Technology Track**<br>
+**Recipient of the first-place prize at LA Hacks 2024 for the Patient Safety Technology Track**<br>
 
 ## Inspiration
 
